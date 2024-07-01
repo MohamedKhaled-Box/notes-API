@@ -6,6 +6,10 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules\Password;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -26,6 +30,9 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        $request->validate([
+            'name' => 'required|unique:users,name,' . $request->user()->id,
+        ]);
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -56,5 +63,30 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    public function showApi(Request $request)
+    {
+        return response()->json($request->user());
+    }
+
+    public function updateApi(Request $request)
+    {
+        $request->validate([
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $request->user()->id,
+            'password' => ['nullable', 'confirmed', Password::defaults()],
+        ]);
+
+        $user = $request->user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return response()->json($user);
     }
 }
