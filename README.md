@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-1. Prerequisites
+    1. Prerequisites
 Ensure you have the following installed on your machine:
 
 PHP (>= 7.3)
@@ -15,55 +15,55 @@ Composer
 Node.js and npm
 A web server (e.g., Apache, Nginx) or Laravel’s built-in server
 A database server (e.g., MySQL, PostgreSQL, SQLite)
-2. Clone the Repository
+    2. Clone the Repository
 bash
-3. Install Dependencies
+    3. Install Dependencies
 Install PHP dependencies using Composer:
 
 bash
-Copy code
+
 composer install
 Install JavaScript dependencies using npm:
 
 bash
-Copy code
+
 npm install
 npm run dev
-4. Environment Configuration
+    4. Environment Configuration
 Copy the .env.example file to .env and configure your environment settings, especially the database connection:
 
 bash
-Copy code
+
 cp .env.example .env
 Generate the application key:
 
 bash
-Copy code
+
 php artisan key:generate
 Configure the .env file to match your database settings:
 
-Copy code
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=your_database_name
 DB_USERNAME=your_database_user
 DB_PASSWORD=your_database_password
-5. Run Migrations
+    5. Run Migrations
 Run the database migrations and seeders to set up your database schema and initial data:
 
 bash
-Copy code
+
 php artisan migrate
-6. Start the Development Server
+    6. Start the Development Server
 You can start the Laravel development server using the following command:
 
 bash
-Copy code
+
 php artisan serve
 By default, the server will be accessible at http://127.0.0.1:8000.
 
-7. Running the Web Interface
+    7. Running the Web Interface
 To test the web interface:
 
 Open your web browser and go to http://127.0.0.1:8000.
@@ -72,14 +72,14 @@ Register a new user account by clicking on the "Register" link.
 After registering, log in with your new account.
 Test the profile management features by navigating to the profile page (by clicking in your username then profile).
 Test the note management features by navigating to the notes page and performing CRUD operations (by clicking on the notes in the navbar).
-8. Running the API Endpoints
+    8. Running the API Endpoints
 To test the API endpoints, you can use tools like Postman or Insomnia. Here are some example requests:
 
 Registration
 Endpoint: POST /api/register
 Request Body:
 json
-Copy code
+
 {
   "name": "Test User",
   "email": "test@example.com",
@@ -92,7 +92,7 @@ Endpoint: POST /api/login
 Request Body:
 
 json
-Copy code
+
 {
   "email": "test@example.com",
   "password": "password"
@@ -100,7 +100,7 @@ Copy code
 Response:
 
 json
-Copy code
+
 {
   "access_token": "your-access-token",
   "token_type": "Bearer"
@@ -109,17 +109,17 @@ Get Profile
 Endpoint: GET /api/profile
 Headers:
 makefile
-Copy code
+
 Authorization: Bearer your-access-token
 Update Profile
 Endpoint: PUT /api/profile
 Headers:
 makefile
-Copy code
+
 Authorization: Bearer your-access-token
 Request Body (example):
 json
-Copy code
+
 {
   "name": "Updated User",
   "email": "updated@example.com",
@@ -130,11 +130,11 @@ Create Note
 Endpoint: POST /api/notes
 Headers:
 makefile
-Copy code
+
 Authorization: Bearer your-access-token
 Request Body:
 json
-Copy code
+
 {
   "title": "Test Note",
   "content": "This is a test note."
@@ -143,17 +143,17 @@ Get Notes
 Endpoint: GET /api/notes
 Headers:
 makefile
-Copy code
+
 Authorization: Bearer your-access-token
 Update Note
 Endpoint: PUT /api/notes/{note_id}
 Headers:
 makefile
-Copy code
+
 Authorization: Bearer your-access-token
 Request Body:
 json
-Copy code
+
 {
   "title": "Updated Note",
   "content": "This is an updated note."
@@ -162,15 +162,15 @@ Delete Note
 Endpoint: DELETE /api/notes/{note_id}
 Headers:
 makefile
-Copy code
+
 Authorization: Bearer your-access-token
-9. Logging Out
+    9. Logging Out
 To log out from the API:
 
 Endpoint: POST /api/logout
 Headers:
 makefile
-Copy code
+
 Authorization: Bearer your-access-token
 
 ## Code of Conduct
