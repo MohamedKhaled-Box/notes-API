@@ -35,38 +35,41 @@ class Handler extends ExceptionHandler
     }
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof ValidationException) {
-            return response()->json([
-                'errors' => $exception->errors(),
-                'message' => $exception->getMessage()
-            ], 422);
-        }
+        if ($request->is('api/*') || $request->ajax() || $request->wantsJson()) {
 
-        if ($exception instanceof HttpResponseException) {
-            return $exception->getResponse();
-        }
-
-        if ($exception instanceof ModelNotFoundException) {
-            return response()->json(['message' => 'Resource not found'], 404);
-        }
-
-        if ($exception instanceof NotFoundHttpException) {
-            return response()->json(['message' => 'Endpoint not found'], 404);
-        }
-
-        if ($exception instanceof MethodNotAllowedHttpException) {
-            return response()->json(['message' => 'Method not allowed'], 405);
-        }
-
-        if ($exception instanceof QueryException) {
-            // Handle SQL exceptions such as unique constraint violations
-            if ($exception->errorInfo[1] == 1062) {
+            if ($exception instanceof ValidationException) {
                 return response()->json([
-                    'message' => 'Duplicate entry detected'
-                ], 409);
+                    'errors' => $exception->errors(),
+                    'message' => $exception->getMessage()
+                ], 422);
             }
-        }
 
-        return parent::render($request, $exception);
+            if ($exception instanceof HttpResponseException) {
+                return $exception->getResponse();
+            }
+
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->json(['message' => 'Resource not found'], 404);
+            }
+
+            if ($exception instanceof NotFoundHttpException) {
+                return response()->json(['message' => 'Endpoint not found'], 404);
+            }
+
+            if ($exception instanceof MethodNotAllowedHttpException) {
+                return response()->json(['message' => 'Method not allowed'], 405);
+            }
+
+            if ($exception instanceof QueryException) {
+                // Handle SQL exceptions such as unique constraint violations
+                if ($exception->errorInfo[1] == 1062) {
+                    return response()->json([
+                        'message' => 'Duplicate entry detected'
+                    ], 409);
+                }
+            }
+
+            return parent::render($request, $exception);
+        }
     }
 }

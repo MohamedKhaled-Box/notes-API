@@ -24,7 +24,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [ProfileController::class, 'showApi']);
-    Route::put('/user', [ProfileController::class, 'updateApi']);
+    Route::get('/profile', [ProfileController::class, 'showApi']);
+    Route::put('/profile', [ProfileController::class, 'updateApi']);
+    Route::delete('/profile', [ProfileController::class, 'destroyApi']);
     Route::resource('/notes', ApiNoteController::class);
 });

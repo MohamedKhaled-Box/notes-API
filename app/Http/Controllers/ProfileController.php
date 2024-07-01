@@ -78,9 +78,12 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-
+        if ($request->name) {
+            $user->name = $request->name;
+        }
+        if ($request->email) {
+            $user->email = $request->email;
+        }
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
@@ -88,5 +91,22 @@ class ProfileController extends Controller
         $user->save();
 
         return response()->json($user);
+    }
+    public function destroyApi(Request $request)
+    {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+        try {
+            $user->delete();
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return response()->json(['message' => 'Account deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Something went wrong'], 500);
+        }
     }
 }

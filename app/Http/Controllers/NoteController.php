@@ -22,8 +22,8 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'title' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
         ]);
         Auth::user()->notes()->create($request->all());
         return redirect()->route('notes.index')->with('success', 'Note created successfully');
