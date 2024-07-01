@@ -15,31 +15,35 @@ Composer
 Node.js and npm
 A web server (e.g., Apache, Nginx) or Laravel’s built-in server
 A database server (e.g., MySQL, PostgreSQL, SQLite)
+
     2. Clone the Repository
-bash
+
     3. Install Dependencies
+
 Install PHP dependencies using Composer:
 
 bash
 
-composer install
+    composer install
 Install JavaScript dependencies using npm:
 
 bash
 
-npm install
-npm run dev
+    npm install
+    npm run dev
+
     4. Environment Configuration
+
 Copy the .env.example file to .env and configure your environment settings, especially the database connection:
 
 bash
 
-cp .env.example .env
+    cp .env.example .env
 Generate the application key:
 
 bash
 
-php artisan key:generate
+    php artisan key:generate
 Configure the .env file to match your database settings:
 
 
@@ -49,18 +53,21 @@ DB_PORT=3306
 DB_DATABASE=your_database_name
 DB_USERNAME=your_database_user
 DB_PASSWORD=your_database_password
+
     5. Run Migrations
 Run the database migrations and seeders to set up your database schema and initial data:
 
 bash
 
-php artisan migrate
+    php artisan migrate
+
     6. Start the Development Server
 You can start the Laravel development server using the following command:
 
 bash
 
-php artisan serve
+    php artisan serve
+
 By default, the server will be accessible at http://127.0.0.1:8000.
 
     7. Running the Web Interface
@@ -72,6 +79,7 @@ Register a new user account by clicking on the "Register" link.
 After registering, log in with your new account.
 Test the profile management features by navigating to the profile page (by clicking in your username then profile).
 Test the note management features by navigating to the notes page and performing CRUD operations (by clicking on the notes in the navbar).
+
     8. Running the API Endpoints
 To test the API endpoints, you can use tools like Postman or Insomnia. Here are some example requests:
 
@@ -164,6 +172,7 @@ Headers:
 makefile
 
 Authorization: Bearer your-access-token
+
     9. Logging Out
 To log out from the API:
 
